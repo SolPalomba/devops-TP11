@@ -1,40 +1,28 @@
 # ============================================
 # outputs.tf — Valores de salida
-# Visibles tras terraform apply
 # ============================================
 
-output "app_url" {
-  description = "URL de la aplicación"
+output "frontend_url" {
+  description = "URL de acceso al frontend"
   value       = module.app.frontend_url
 }
 
-output "app_network" {
-  description = "Nombre de la red Docker de la app"
-  value       = module.network.app_network_name
+output "postgres_container" {
+  description = "Nombre del contenedor de Postgres"
+  value       = module.app.postgres_container_name
 }
 
-output "monitoring_network" {
-  description = "Nombre de la red Docker de monitoreo"
-  value       = module.network.monitoring_network_name
+output "frontend_container" {
+  description = "Nombre del contenedor del frontend"
+  value       = module.app.frontend_container_name
+}
+
+output "network_name" {
+  description = "Red Docker creada"
+  value       = module.network.network_name
 }
 
 output "postgres_volume" {
-  description = "Nombre del volumen de Postgres"
+  description = "Volumen de Postgres creado"
   value       = module.storage.postgres_volume_name
-}
-
-output "backend_containers" {
-  description = "IDs de los contenedores del backend"
-  value       = module.app.backend_container_ids
-}
-
-output "infrastructure_summary" {
-  description = "Resumen de la infraestructura creada"
-  value = {
-    environment  = var.environment
-    project      = var.project_name
-    app_url      = module.app.frontend_url
-    replicas     = var.backend_replicas
-    managed_by   = "terraform"
-  }
 }

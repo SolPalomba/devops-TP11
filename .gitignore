@@ -1,8 +1,9 @@
-.terraform/
-.terraform.lock.hcl
+# Terraform state — nunca se commitea
 terraform.tfstate
 terraform.tfstate.backup
-*.tfvars
-!terraform.tfvars.example
-.terraform.tfstate.lock.info
-crash.log
+.terraform/
+.terraform.lock.hcl
+
+# Variables con valores sensibles
+terraform.tfvars
+*.auto.tfvars

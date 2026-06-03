@@ -1,44 +1,25 @@
 # ============================================
-# modules/network/main.tf
-# Crea las redes Docker del proyecto
+# modules/network/main.tf — Redes Docker
 # ============================================
 
-resource "docker_network" "app_network" {
-  name   = "${var.project_name}-app-${var.environment}"
-  driver = "bridge"
-
-  ipam_config {
-    subnet  = var.app_subnet
-    gateway = cidrhost(var.app_subnet, 1)
-  }
-
-  labels {
-    label = "project"
-    value = var.project_name
-  }
-  labels {
-    label = "environment"
-    value = var.environment
-  }
-  labels {
-    label = "managed-by"
-    value = "terraform"
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0"
+    }
   }
 }
 
-resource "docker_network" "monitoring_network" {
-  name   = "${var.project_name}-monitoring-${var.environment}"
+resource "docker_network" "app_network" {
+  name   = "${var.project_name}-${var.environment}-network"
   driver = "bridge"
-
-  ipam_config {
-    subnet  = var.monitoring_subnet
-    gateway = cidrhost(var.monitoring_subnet, 1)
-  }
 
   labels {
     label = "project"
     value = var.project_name
   }
+
   labels {
     label = "environment"
     value = var.environment
